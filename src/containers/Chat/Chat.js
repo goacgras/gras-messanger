@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useParams } from 'react-router-dom'
 
 import Aux from '../../hoc/Auxiliary';
 import { InsertEmoticon, Mic } from '@material-ui/icons';
@@ -7,6 +8,16 @@ import classes from './Chat.module.css';
 
 const Chat = () => {
     let attachedClasses = [classes.Messages, classes.Reciever];
+    const [input, setInput] = useState('');
+    const { roomId } = useParams();
+
+    const sendMessage = (e) => {
+        e.preventDefault();
+        console.log('you type >>>', input);
+
+        setInput('');
+    };
+
     return (
         <Aux>
             <div className={classes.Chat}>
@@ -20,8 +31,15 @@ const Chat = () => {
             <div className={classes.Footer}>
                 <InsertEmoticon />
                 <form>
-                    <input type="text" />
-                    <button>Send a message</button>
+                    <input
+                        onChange={e => setInput(e.target.value)}
+                        value={input}
+                        type="text" />
+                    <button
+                        onClick={sendMessage}
+                        type="submit">
+                        Send a message
+                    </button>
                 </form>
                 <Mic />
             </div>

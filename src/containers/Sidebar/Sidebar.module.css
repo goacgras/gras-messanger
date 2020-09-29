@@ -42,3 +42,9 @@
     background-color: white;
     overflow: scroll;
 }
+
+@media (max-width: 500px) {
+    .Sidebar {
+        display: none;
+    }
+}

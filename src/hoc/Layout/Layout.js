@@ -1,16 +1,19 @@
 import React from 'react'
 
 import Aux from '../Auxiliary';
+import Toolbar from '../../components/Toolbar/Toolbar';
 
-// import classes from './Layout.module.css';
+import classes from './Layout.module.css';
 
-const Layout = ({children}) => {
+const Layout = ({ children }) => {
     return (
         <Aux>
-            <p>This is layout</p>
-            <main>
-                {children}
-            </main>
+            <div className={classes.Layout}>
+                <Toolbar />
+                <main className={classes.Chat}>
+                    {children}
+                </main>
+            </div>
         </Aux>
     )
 }

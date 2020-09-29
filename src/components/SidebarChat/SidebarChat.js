@@ -4,14 +4,23 @@ import { Avatar } from '@material-ui/core';
 
 import classes from './SidebarChat.module.css';
 
-const SidebarChat = () => {
+const SidebarChat = ({ addNewChat }) => {
     const [seed, setSeed] = useState('');
 
     useEffect(() => {
         setSeed(Math.floor(Math.random() * 5000));
     }, []);
 
-    return (
+    const addNewChatHandler = () => {
+        const roomName = prompt('please enter char name');
+
+        if (roomName) {
+            //do clever stuff here...
+        }
+    }
+
+
+    return !addNewChat ? (
         <div className={classes.SidebarChat}>
             <Avatar src={`https://avatars.dicebear.com/api/avataaars/${seed}.svg`} />
             <div className={classes.Info}>
@@ -19,7 +28,14 @@ const SidebarChat = () => {
                 <p>Last message</p>
             </div>
         </div>
-    )
+    ) : (
+            <div
+                className={classes.SidebarChat}
+                onClick={addNewChatHandler}>
+
+                <h2>Add new Chat</h2>
+            </div>
+        )
 }
 
 export default SidebarChat

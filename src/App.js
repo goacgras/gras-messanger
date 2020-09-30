@@ -1,43 +1,49 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import { Switch, Route } from 'react-router-dom'
+import { Switch, Route, Redirect } from 'react-router-dom'
+
 
 import Layout from './hoc/Layout/Layout';
 import Sidebar from './containers/Sidebar/Sidebar';
 import Chat from './containers/Chat/Chat';
-// import Login from './components/Login/Login';
+import Login from './components/Login/Login';
+import Aux from './hoc/Auxiliary';
 
 import './App.css'
 
 function App() {
+  const [user, setUser] = useState('reza');
 
-  // let route1 = (  
-  //   <Switch>
-  //     <Route path="/" component={Login} />
-  //   </Switch>
-  // );
+  let routes = (
+    <Switch>
+      <Route path="/" exact component={Login} />
+      <Redirect to="/" />
+    </Switch>
+  );
 
-  // let route2 = (
+  if (user) {
+    routes = (
+      <Aux>
+        <Sidebar />
+        <Switch>
 
-  // );
+          <Route path="/rooms/:roomId" exact>
+            <Layout>
+              <Chat />
+            </Layout>
+            {/* <Redirect to="/rooms/:roomId" /> */}
+          </Route>
+
+        </Switch>
+      </Aux>
+    );
+  }
+
 
   return (
     <div className="app">
       <div className="app__body">
-        <Sidebar />
-
-
-        <Layout>
-          <Switch>
-            <Route path="/rooms/:roomId">
-              <Chat />
-            </Route>
-            <Route path="/">
-              <h1>Login</h1>
-            </Route>
-          </Switch>
-        </Layout>
-
+        {routes}
       </div>
     </div>
 

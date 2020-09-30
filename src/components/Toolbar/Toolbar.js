@@ -5,14 +5,15 @@ import DrawerToggle from '../../components/SideDrawer/DrawerToggle/DrawerToggle'
 
 import classes from './Toolbar.module.css';
 
-const Toolbar = ({drawerToggleClicked}) => {
+const Toolbar = ({ drawerToggleClicked, roomName }) => {
+
     return (
         <header className={classes.Toolbar}>
             <DrawerToggle clicked={drawerToggleClicked} />
             <Avatar />
 
             <div className={classes.RoomName}>
-                <h3>Room Name</h3>
+                <h3>{roomName}</h3>
             </div>
 
         </header>

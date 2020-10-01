@@ -9,7 +9,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.SET_ROOMS:
             return {
                 ...state,
-                rooms: state.rooms.concat(action.value)
+                rooms: state.rooms.concat(action.rooms)
             }
         default:
             return state;

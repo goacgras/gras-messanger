@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react'
-import db from '../../firebase';
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
 
@@ -9,28 +8,32 @@ import SidebarChat from '../../components/SidebarChat/SidebarChat';
 
 import classes from './Sidebar.module.css';
 
-const Sidebar = ({onSetRooms}) => {
-    const [rooms, setRooms] = useState([]);
-    
-    useEffect(() => {
-        const unsubscribe =  db.collection('rooms').onSnapshot(snaphot => (
-            setRooms(snaphot.docs.map(doc => (
-                {
-                    id: doc.id,
-                    data: doc.data()
-                }
-            )))
-        ))
-                
-        return () => {
-            unsubscribe();
-        }
-    }, []);
+const Sidebar = ({ onInitRooms, roomsRdx }) => {
+    // const [rooms, setRooms] = useState([]);
+
+    // useEffect(() => {
+    //     const unsubscribe =  db.collection('rooms').onSnapshot(snaphot => (
+    //         setRooms(snaphot.docs.map(doc => (
+    //             {
+    //                 id: doc.id,
+    //                 data: doc.data()
+    //             }
+    //         )))
+    //     ))
+
+    //     return () => {
+    //         unsubscribe();
+    //     }
+    // }, []);
+
+    // useEffect(() => {
+    //     // console.log(rooms);
+    //     onSetRooms(rooms);
+    // },[onSetRooms, rooms]);
 
     useEffect(() => {
-        // console.log(rooms);
-        onSetRooms(rooms);
-    },[onSetRooms, rooms]);
+        onInitRooms();
+    }, [onInitRooms]);
 
     return (
         <div className={classes.Sidebar}>
@@ -50,7 +53,7 @@ const Sidebar = ({onSetRooms}) => {
             <div className={classes.Chat}>
                 <SidebarChat addNewChat />
                 {
-                    rooms.map(room => (
+                    roomsRdx.map(room => (
                         <SidebarChat
                             key={room.id}
                             id={room.id}
@@ -62,10 +65,17 @@ const Sidebar = ({onSetRooms}) => {
     )
 }
 
+const mapStateToProps = state => {
+    return {
+        roomsRdx: state.rooms
+    };
+};
+
 const mapDispatchToProps = dispatch => {
     return {
-        onSetRooms: (rooms) => dispatch(actions.setRooms(rooms))
+        // onSetRooms: (rooms) => dispatch(actions.setRooms(rooms)),
+        onInitRooms: () => dispatch(actions.initRooms())
     };
 }
 
-export default connect(null, mapDispatchToProps)(Sidebar);
+export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);

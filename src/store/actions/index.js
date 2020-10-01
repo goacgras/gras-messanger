@@ -1,1 +1,1 @@
-export { setRooms } from './room'
+export { initRooms } from './room'

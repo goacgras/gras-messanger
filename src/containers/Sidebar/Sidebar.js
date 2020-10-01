@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import db from '../../firebase';
+import { connect } from 'react-redux';
+import * as actions from '../../store/actions/index';
 
 import { Avatar } from '@material-ui/core';
 import { SearchOutlined } from '@material-ui/icons'
@@ -7,9 +9,9 @@ import SidebarChat from '../../components/SidebarChat/SidebarChat';
 
 import classes from './Sidebar.module.css';
 
-const Sidebar = () => {
+const Sidebar = ({onSetRooms}) => {
     const [rooms, setRooms] = useState([]);
-
+    
     useEffect(() => {
         const unsubscribe =  db.collection('rooms').onSnapshot(snaphot => (
             setRooms(snaphot.docs.map(doc => (
@@ -19,11 +21,16 @@ const Sidebar = () => {
                 }
             )))
         ))
-        
+                
         return () => {
             unsubscribe();
         }
     }, []);
+
+    useEffect(() => {
+        // console.log(rooms);
+        onSetRooms(rooms);
+    },[onSetRooms, rooms]);
 
     return (
         <div className={classes.Sidebar}>
@@ -55,4 +62,10 @@ const Sidebar = () => {
     )
 }
 
-export default Sidebar
+const mapDispatchToProps = dispatch => {
+    return {
+        onSetRooms: (rooms) => dispatch(actions.setRooms(rooms))
+    };
+}
+
+export default connect(null, mapDispatchToProps)(Sidebar);

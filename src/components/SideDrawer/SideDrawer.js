@@ -2,19 +2,27 @@ import React from 'react'
 
 import Aux from '../../hoc/Auxiliary';
 import Backdrop from '../Backdrop/Backdrop';
+import SidebarChat from '../SidebarChat/SidebarChat';
 
 import classes from './SideDrawer.module.css';
 
-const SideDrawer = ({openSideDrawer, closeSideDrawer}) => {
+const SideDrawer = ({ openSideDrawer, closeSideDrawer, rooms }) => {
     let attachedClasses = [classes.SideDrawer, classes.Close];
-    if(openSideDrawer) {
+    if (openSideDrawer) {
         attachedClasses = [classes.SideDrawer, classes.Open];
     }
     return (
         <Aux>
             <Backdrop show={openSideDrawer} clicked={closeSideDrawer} />
             <div className={attachedClasses.join(' ')}>
-                <h3>Side Drawer</h3>
+                {
+                    rooms.map(room => (
+                        <SidebarChat
+                            key={room.id}
+                            id={room.id}
+                            name={room.data.name} />
+                    ))
+                }
             </div>
 
         </Aux>

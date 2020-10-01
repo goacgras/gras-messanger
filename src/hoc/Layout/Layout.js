@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { connect } from 'react-redux'
 
 import db from '../../firebase';
 import Aux from '../Auxiliary';
@@ -8,10 +9,12 @@ import SideDrawer from '../../components/SideDrawer/SideDrawer';
 import classes from './Layout.module.css';
 import { useParams } from 'react-router-dom';
 
-const Layout = ({ children }) => {
+const Layout = ({ children, roomsRdx }) => {
     const [showSideDrawer, setShowSideDrawer] = useState(false);
     const [roomName, setRoomName] = useState('');
     const { roomId } = useParams();
+
+    console.log(roomsRdx)
 
     const closeSideDrawerHandler = () => {
         setShowSideDrawer(false);
@@ -39,6 +42,7 @@ const Layout = ({ children }) => {
                     roomName={roomName}
                     drawerToggleClicked={drawerToggleHandler} />
                 <SideDrawer
+                    rooms={roomsRdx}
                     openSideDrawer={showSideDrawer}
                     closeSideDrawer={closeSideDrawerHandler} />
                 <main className={classes.Chat}>
@@ -49,4 +53,10 @@ const Layout = ({ children }) => {
     )
 }
 
-export default Layout
+const mapStateToProps = state => {
+    return {
+        roomsRdx: state.rooms
+    }
+};
+
+export default connect(mapStateToProps)(Layout);

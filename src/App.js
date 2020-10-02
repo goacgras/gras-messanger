@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React  from 'react';
+import { connect } from 'react-redux'
 
 import { Switch, Route, Redirect } from 'react-router-dom'
 
@@ -11,8 +12,10 @@ import Aux from './hoc/Auxiliary';
 
 import './App.css'
 
-function App() {
-  const [user, setUser] = useState('reza');
+function App({isAuthenticated}) {
+  // const [user, setUser] = useState('eee');
+
+  console.log(isAuthenticated);
 
   let routes = (
     <Switch>
@@ -21,7 +24,7 @@ function App() {
     </Switch>
   );
 
-  if (user) {
+  if (isAuthenticated) {
     routes = (
       <Aux>
         <Sidebar />
@@ -51,4 +54,10 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.auth.user !== null
+  }
+}
+
+export default connect(mapStateToProps)(App);

@@ -9,7 +9,7 @@ import SideDrawer from '../../components/SideDrawer/SideDrawer';
 import classes from './Layout.module.css';
 import { useParams } from 'react-router-dom';
 
-const Layout = ({ children, roomsRdx }) => {
+const Layout = ({ children, roomsRdx, userRdx }) => {
     const [showSideDrawer, setShowSideDrawer] = useState(false);
     const [roomName, setRoomName] = useState('');
     const { roomId } = useParams();
@@ -42,6 +42,7 @@ const Layout = ({ children, roomsRdx }) => {
                     roomName={roomName}
                     drawerToggleClicked={drawerToggleHandler} />
                 <SideDrawer
+                    userPhoto={userRdx?.photoURL}
                     rooms={roomsRdx}
                     openSideDrawer={showSideDrawer}
                     closeSideDrawer={closeSideDrawerHandler} />
@@ -55,7 +56,8 @@ const Layout = ({ children, roomsRdx }) => {
 
 const mapStateToProps = state => {
     return {
-        roomsRdx: state.rooms
+        userRdx: state.auth.user,
+        roomsRdx: state.room.rooms
     }
 };
 

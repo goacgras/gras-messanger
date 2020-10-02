@@ -8,7 +8,7 @@ import SidebarChat from '../../components/SidebarChat/SidebarChat';
 
 import classes from './Sidebar.module.css';
 
-const Sidebar = ({ onInitRooms, roomsRdx }) => {
+const Sidebar = ({ onInitRooms, roomsRdx, userRdx }) => {
     // const [rooms, setRooms] = useState([]);
 
     // useEffect(() => {
@@ -38,7 +38,7 @@ const Sidebar = ({ onInitRooms, roomsRdx }) => {
     return (
         <div className={classes.Sidebar}>
             <div className={classes.Header}>
-                <Avatar />
+                <Avatar src={userRdx?.photoURL} />
             </div>
 
             <div className={classes.Search}>
@@ -67,7 +67,8 @@ const Sidebar = ({ onInitRooms, roomsRdx }) => {
 
 const mapStateToProps = state => {
     return {
-        roomsRdx: state.rooms
+        roomsRdx: state.room.rooms,
+        userRdx: state.auth.user
     };
 };
 

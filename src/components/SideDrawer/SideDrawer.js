@@ -1,3 +1,4 @@
+import { Avatar } from '@material-ui/core';
 import React from 'react'
 
 import Aux from '../../hoc/Auxiliary';
@@ -6,7 +7,7 @@ import SidebarChat from '../SidebarChat/SidebarChat';
 
 import classes from './SideDrawer.module.css';
 
-const SideDrawer = ({ openSideDrawer, closeSideDrawer, rooms }) => {
+const SideDrawer = ({ openSideDrawer, closeSideDrawer, rooms, userPhoto }) => {
     let attachedClasses = [classes.SideDrawer, classes.Close];
     if (openSideDrawer) {
         attachedClasses = [classes.SideDrawer, classes.Open];
@@ -14,15 +15,23 @@ const SideDrawer = ({ openSideDrawer, closeSideDrawer, rooms }) => {
     return (
         <Aux>
             <Backdrop show={openSideDrawer} clicked={closeSideDrawer} />
-            <div className={attachedClasses.join(' ')}>
-                {
-                    rooms.map(room => (
-                        <SidebarChat
-                            key={room.id}
-                            id={room.id}
-                            name={room.data.name} />
-                    ))
-                }
+            <div className={attachedClasses.join(' ')} onClick={closeSideDrawer}>
+                <div className={classes.Header}>
+                    <Avatar src={userPhoto} />
+                </div>
+
+                <div className={classes.Rooms}>
+                    {
+                        rooms.map(room => (
+                            <SidebarChat
+                                key={room.id}
+                                id={room.id}
+                                name={room.data.name} />
+                        ))
+                    }
+                </div>
+
+
             </div>
 
         </Aux>

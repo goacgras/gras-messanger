@@ -1,7 +1,8 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
-    messages: []
+    messages: [],
+    roomName: null
 };
 
 const reducer = (state = initialState, action) => {
@@ -11,6 +12,11 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 messages: action.messages
+            }
+        case actionTypes.SET_ROOM_NAME:
+            return {
+                ...state,
+                roomName: action.roomName
             }
         default:
             return state;

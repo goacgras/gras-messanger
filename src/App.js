@@ -1,8 +1,7 @@
-import React  from 'react';
-import { connect } from 'react-redux'
+import React from 'react';
+import { connect } from 'react-redux';
 
-import { Switch, Route, Redirect } from 'react-router-dom'
-
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 import Layout from './hoc/Layout/Layout';
 import Sidebar from './containers/Sidebar/Sidebar';
@@ -12,8 +11,7 @@ import Aux from './hoc/Auxiliary';
 
 import './App.css'
 
-function App({isAuthenticated}) {
-  // const [user, setUser] = useState('eee');
+function App({ isAuthenticated }) {
 
   console.log(isAuthenticated);
 
@@ -28,16 +26,14 @@ function App({isAuthenticated}) {
     routes = (
       <Aux>
         <Sidebar />
-        <Switch>
-
-          <Route path="/rooms/:roomId" exact>
-            <Layout>
+        <Layout>
+          <Switch>
+            <Route path="/rooms/:roomId">
               <Chat />
-            </Layout>
-            {/* <Redirect to="/rooms/:roomId" /> */}
-          </Route>
-
-        </Switch>
+              {/* <Redirect to="/rooms/:roomId" /> */}
+            </Route>
+          </Switch>
+        </Layout>
       </Aux>
     );
   }

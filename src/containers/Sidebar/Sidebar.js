@@ -9,27 +9,6 @@ import SidebarChat from '../../components/SidebarChat/SidebarChat';
 import classes from './Sidebar.module.css';
 
 const Sidebar = ({ onInitRooms, roomsRdx, userRdx }) => {
-    // const [rooms, setRooms] = useState([]);
-
-    // useEffect(() => {
-    //     const unsubscribe =  db.collection('rooms').onSnapshot(snaphot => (
-    //         setRooms(snaphot.docs.map(doc => (
-    //             {
-    //                 id: doc.id,
-    //                 data: doc.data()
-    //             }
-    //         )))
-    //     ))
-
-    //     return () => {
-    //         unsubscribe();
-    //     }
-    // }, []);
-
-    // useEffect(() => {
-    //     // console.log(rooms);
-    //     onSetRooms(rooms);
-    // },[onSetRooms, rooms]);
 
     useEffect(() => {
         onInitRooms();
@@ -74,7 +53,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        // onSetRooms: (rooms) => dispatch(actions.setRooms(rooms)),
         onInitRooms: () => dispatch(actions.initRooms())
     };
 }

@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import db from '../../firebase';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
+
 import { useParams } from 'react-router-dom'
 import { connect } from 'react-redux'
 import * as actions from '../../store/actions/index';
@@ -11,19 +12,19 @@ import { InsertEmoticon, Mic } from '@material-ui/icons';
 import classes from './Chat.module.css';
 import './chatExtra.css';
 
-
-const Chat = ({ onInitMessages, messagesRdx, userRdx }) => {
+const Chat = ({ onInitMessages, onFetchRoomName, messagesRdx, userRdx }) => {
     const [input, setInput] = useState('');
     const { roomId } = useParams();
+    const dummy = useRef();
 
-    console.log(userRdx);
     // let attachedClasses = [classes.Messages, classes.Reciever];
 
     useEffect(() => {
         if (roomId) {
             onInitMessages(roomId);
+            onFetchRoomName(roomId);
         }
-    }, [roomId, onInitMessages]);
+    }, [roomId, onInitMessages, onFetchRoomName]);
 
     const sendMessage = (e) => {
         e.preventDefault();
@@ -39,6 +40,7 @@ const Chat = ({ onInitMessages, messagesRdx, userRdx }) => {
             })
 
         setInput('');
+        dummy.current.scrollIntoView({ behavior: "smooth" });
     };
     // className={attachedClasses.join(' ')}
 
@@ -47,6 +49,7 @@ const Chat = ({ onInitMessages, messagesRdx, userRdx }) => {
             <div className={classes.Chat}>
                 {
                     messagesRdx.map(message => (
+
                         <p
                             key={message.timestamp}
                             className={`chat__message ${message.name === userRdx.displayName && "chat__reciever"}`}>
@@ -57,9 +60,12 @@ const Chat = ({ onInitMessages, messagesRdx, userRdx }) => {
                                 className={classes.Timestamp}>
                                 {new Date(message.timestamp?.toDate()).toUTCString()}
                             </span>
+
                         </p>
                     ))
+
                 }
+                <div ref={dummy} />
 
             </div>
 
@@ -94,6 +100,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         onInitMessages: (roomId) => dispatch(actions.initMessages(roomId)),
+        onFetchRoomName: (roomId) => dispatch(actions.fetchRoomName(roomId))
     }
 };
 

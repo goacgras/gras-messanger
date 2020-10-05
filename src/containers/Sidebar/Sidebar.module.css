@@ -5,8 +5,20 @@
 }
 
 .Header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     padding: 20px;
     border-right: 1px solid lightgray;
+}
+
+.Header > a {
+    color: rgb(185, 179, 179);
+}
+
+.Header > a:hover {
+    color: #8f5c2c;
+    /* border-bottom: 4px solid #8f5c2c; */
 }
 
 .Search {

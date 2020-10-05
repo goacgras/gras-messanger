@@ -1,6 +1,7 @@
-import { Avatar } from '@material-ui/core';
 import React from 'react'
+import { NavLink } from 'react-router-dom';
 
+import { Avatar } from '@material-ui/core';
 import Aux from '../../hoc/Auxiliary';
 import Backdrop from '../Backdrop/Backdrop';
 import SidebarChat from '../SidebarChat/SidebarChat';
@@ -18,6 +19,7 @@ const SideDrawer = ({ openSideDrawer, closeSideDrawer, rooms, userPhoto }) => {
             <div className={attachedClasses.join(' ')} onClick={closeSideDrawer}>
                 <div className={classes.Header}>
                     <Avatar src={userPhoto} />
+                    <NavLink to="/logout">Logout</NavLink>
                 </div>
 
                 <div className={classes.Rooms}>

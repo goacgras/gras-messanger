@@ -1,19 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-
 import { Switch, Route, Redirect } from 'react-router-dom';
+
+import * as actions from './store/actions/index';
 
 import Layout from './hoc/Layout/Layout';
 import Sidebar from './containers/Sidebar/Sidebar';
 import Chat from './containers/Chat/Chat';
 import Login from './components/Login/Login';
+import Logout from './components/Logout/Logout';
 import Aux from './hoc/Auxiliary';
 
 import './App.css'
 
-function App({ isAuthenticated }) {
+function App({ isAuthenticated, onTryAutoSignup }) {
 
   console.log(isAuthenticated);
+
+  useEffect(() => {
+    onTryAutoSignup();
+  }, [onTryAutoSignup]);
 
   let routes = (
     <Switch>
@@ -28,9 +34,9 @@ function App({ isAuthenticated }) {
         <Sidebar />
         <Layout>
           <Switch>
+            <Route path="/logout" component={Logout} />
             <Route path="/rooms/:roomId">
               <Chat />
-              {/* <Redirect to="/rooms/:roomId" /> */}
             </Route>
           </Switch>
         </Layout>
@@ -52,8 +58,14 @@ function App({ isAuthenticated }) {
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.auth.user !== null
-  }
-}
+    isAuthenticated: state.auth.token !== null
+  };
+};
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = dispatch => {
+  return {
+    onTryAutoSignup: () => { dispatch(actions.authCheckState()) }
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

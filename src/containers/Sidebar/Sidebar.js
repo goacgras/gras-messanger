@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
 
+import { NavLink } from 'react-router-dom'
 import { Avatar } from '@material-ui/core';
 import { SearchOutlined } from '@material-ui/icons'
 import SidebarChat from '../../components/SidebarChat/SidebarChat';
@@ -18,6 +19,7 @@ const Sidebar = ({ onInitRooms, roomsRdx, userRdx }) => {
         <div className={classes.Sidebar}>
             <div className={classes.Header}>
                 <Avatar src={userRdx?.photoURL} />
+                <NavLink to="/logout">Logout</NavLink>
             </div>
 
             <div className={classes.Search}>

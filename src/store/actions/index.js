@@ -1,5 +1,5 @@
 export { initRooms } from './room';
 
-export { userSignin } from './auth';
+export { userSignin, logout, authCheckState } from './auth';
 
 export { initMessages, fetchRoomName } from './chat';

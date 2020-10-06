@@ -15,8 +15,6 @@ import './App.css'
 
 function App({ isAuthenticated, onTryAutoSignup }) {
 
-  console.log(isAuthenticated);
-
   useEffect(() => {
     onTryAutoSignup();
   }, [onTryAutoSignup]);

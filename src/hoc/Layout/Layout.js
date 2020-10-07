@@ -7,7 +7,7 @@ import SideDrawer from '../../components/SideDrawer/SideDrawer';
 
 import classes from './Layout.module.css';
 
-const Layout = ({ children, roomsRdx, userRdx, roomNameRdx }) => {
+const Layout = ({ children, roomsRdx, userRdx, roomNameRdx, roomImageRdx }) => {
     const [showSideDrawer, setShowSideDrawer] = useState(false);
 
     const closeSideDrawerHandler = () => {
@@ -18,11 +18,11 @@ const Layout = ({ children, roomsRdx, userRdx, roomNameRdx }) => {
         setShowSideDrawer(!showSideDrawer);
     };
 
-
     return (
         <Aux>
             <div className={classes.Layout}>
                 <Toolbar
+                    roomImage={roomImageRdx}
                     roomName={roomNameRdx}
                     drawerToggleClicked={drawerToggleHandler} />
                 <SideDrawer
@@ -42,7 +42,8 @@ const mapStateToProps = state => {
     return {
         userRdx: state.auth.user,
         roomsRdx: state.room.rooms,
-        roomNameRdx: state.chat.roomName
+        roomNameRdx: state.chat.roomName,
+        roomImageRdx: state.chat.roomImage
     }
 };
 

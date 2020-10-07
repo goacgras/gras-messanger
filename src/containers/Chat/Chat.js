@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useCallback } from 'react'
 import db from '../../firebase';
 import firebase from 'firebase/app';
 
@@ -12,23 +12,31 @@ import { InsertEmoticon, Mic } from '@material-ui/icons';
 import classes from './Chat.module.css';
 import './chatExtra.css';
 
-const Chat = ({ onInitMessages, onFetchRoomName, messagesRdx, userRdx }) => {
+const Chat = ({ onInitMessages, onFetchRoomName, onSetRoomImage, messagesRdx, userRdx, roomsRdx }) => {
     const [input, setInput] = useState('');
     const { roomId } = useParams();
-    const dummy = useRef();
+    const messageEndRef = useRef();
 
     // let attachedClasses = [classes.Messages, classes.Reciever];
+    // className={attachedClasses.join(' ')}
+    useEffect(() => {
+        scrollToBottom();
+    });
 
     useEffect(() => {
         if (roomId) {
             onInitMessages(roomId);
             onFetchRoomName(roomId);
+            onSetRoomImage(roomsRdx, roomId);
         }
-    }, [roomId, onInitMessages, onFetchRoomName]);
+    }, [roomId, onInitMessages, onFetchRoomName, onSetRoomImage, roomsRdx]);
+
+    const scrollToBottom = useCallback(() => {
+        messageEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }, [])
 
     const sendMessage = (e) => {
         e.preventDefault();
-        console.log('you type >>>', input);
 
         db.collection('rooms')
             .doc(roomId)
@@ -40,9 +48,9 @@ const Chat = ({ onInitMessages, onFetchRoomName, messagesRdx, userRdx }) => {
             })
 
         setInput('');
-        dummy.current.scrollIntoView({ behavior: "smooth" });
+        scrollToBottom();
+
     };
-    // className={attachedClasses.join(' ')}
 
     return (
         <Aux>
@@ -65,7 +73,8 @@ const Chat = ({ onInitMessages, onFetchRoomName, messagesRdx, userRdx }) => {
                     ))
 
                 }
-                <div ref={dummy} />
+
+                <div ref={messageEndRef} />
 
             </div>
 
@@ -93,14 +102,16 @@ const Chat = ({ onInitMessages, onFetchRoomName, messagesRdx, userRdx }) => {
 const mapStateToProps = state => {
     return {
         messagesRdx: state.chat.messages,
-        userRdx: state.auth.user
+        userRdx: state.auth.user,
+        roomsRdx: state.room.rooms
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         onInitMessages: (roomId) => dispatch(actions.initMessages(roomId)),
-        onFetchRoomName: (roomId) => dispatch(actions.fetchRoomName(roomId))
+        onFetchRoomName: (roomId) => dispatch(actions.fetchRoomName(roomId)),
+        onSetRoomImage: (rooms, roomId) => dispatch(actions.setRoomImage(rooms, roomId))
     }
 };
 

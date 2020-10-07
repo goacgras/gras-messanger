@@ -16,6 +16,14 @@ export const setRoomName = (roomName) => {
     }
 };
 
+export const setRoomImage = (rooms, roomId) => {
+    return {
+        type: actionTypes.SET_ROOM_IMAGE,
+        rooms: rooms,
+        roomId: roomId
+    }
+};
+
 export const initMessages = (roomId) => {
     return dispatch => {
         db.collection('rooms')
@@ -39,6 +47,12 @@ export const fetchRoomName = (roomId) => {
             )
     }
 };
+
+// export const fetchRoomImage = (rooms, roomId) => {
+//     return dispatch => {
+//         dispatch(setRoomImage(rooms.find(room => room.id === roomId).image))
+//     };
+// };
 
 // export const sendMessage = (roomId, input, user) => {
 //     db.collection('rooms')

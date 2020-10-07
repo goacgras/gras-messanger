@@ -28,7 +28,8 @@ const SideDrawer = ({ openSideDrawer, closeSideDrawer, rooms, userPhoto }) => {
                             <SidebarChat
                                 key={room.id}
                                 id={room.id}
-                                name={room.data.name} />
+                                name={room.data.name}
+                                roomImage={room.image} />
                         ))
                     }
                 </div>

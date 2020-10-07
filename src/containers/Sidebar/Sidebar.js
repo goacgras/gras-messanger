@@ -38,7 +38,8 @@ const Sidebar = ({ onInitRooms, roomsRdx, userRdx }) => {
                         <SidebarChat
                             key={room.id}
                             id={room.id}
-                            name={room.data.name} />
+                            name={room.data.name}
+                            roomImage={room.image} />
                     ))
                 }
             </div>

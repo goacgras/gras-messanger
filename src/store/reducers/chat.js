@@ -2,7 +2,8 @@ import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
     messages: [],
-    roomName: 'Select room'
+    roomName: 'Select room',
+    roomImage: null
 };
 
 const reducer = (state = initialState, action) => {
@@ -16,6 +17,12 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 roomName: action.roomName
+            }
+        case actionTypes.SET_ROOM_IMAGE:
+            const image = action.rooms.find(room => room.id === action.roomId).image
+            return {
+                ...state,
+                roomImage: image
             }
         default:
             return state;

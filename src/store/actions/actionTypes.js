@@ -6,3 +6,4 @@ export const USER_LOGOUT = 'USER_LOGOUT'
 
 export const SET_MESSAGES = 'SET_MESSAGES';
 export const SET_ROOM_NAME = 'SET_ROOM_NAME';
+export const SET_ROOM_IMAGE = 'SET_ROOM_IMAGE';

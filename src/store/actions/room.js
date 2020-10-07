@@ -21,7 +21,8 @@ export const initRooms = () => {
             dispatch(setRooms(snaphot.docs.map(doc => (
                 {
                     id: doc.id,
-                    data: doc.data()
+                    data: doc.data(),
+                    image: `https://avatars.dicebear.com/api/avataaars/${Math.floor(Math.random() * 5000)}.svg`
                 }
             ))))
         ))

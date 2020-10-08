@@ -22,7 +22,7 @@ export const initRooms = () => {
                 {
                     id: doc.id,
                     data: doc.data(),
-                    image: `https://avatars.dicebear.com/api/avataaars/${Math.floor(Math.random() * 5000)}.svg`
+                    image: `https://avatars.dicebear.com/api/avataaars/${Math.floor(Math.random() * 5000)}.svg`,
                 }
             ))))
         ))

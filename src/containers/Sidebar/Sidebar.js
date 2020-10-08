@@ -10,6 +10,7 @@ import SidebarChat from '../../components/SidebarChat/SidebarChat';
 import classes from './Sidebar.module.css';
 
 const Sidebar = ({ onInitRooms, roomsRdx, userRdx }) => {
+    // const lastMessage = messagesRdx[messagesRdx.length - 1]?.message;
 
     useEffect(() => {
         onInitRooms();
@@ -50,7 +51,8 @@ const Sidebar = ({ onInitRooms, roomsRdx, userRdx }) => {
 const mapStateToProps = state => {
     return {
         roomsRdx: state.room.rooms,
-        userRdx: state.auth.user
+        userRdx: state.auth.user,
+        // messagesRdx: state.chat.messages
     };
 };
 

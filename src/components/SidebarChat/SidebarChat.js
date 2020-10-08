@@ -8,6 +8,8 @@ import classes from './SidebarChat.module.css';
 
 const SidebarChat = ({ addNewChat, id, name, roomImage }) => {
 
+    // console.log('SIDEBAR CHAT', lastMessage);
+
     const addNewChatHandler = () => {
         const roomName = prompt('please name your chat room');
 
@@ -25,7 +27,7 @@ const SidebarChat = ({ addNewChat, id, name, roomImage }) => {
                 <Avatar src={roomImage} />
                 <div className={classes.Info}>
                     <h2>{name}</h2>
-                    <p>Last message</p>
+                    {/* <p>last message...</p> */}
                 </div>
             </div>
         </Link>
@@ -40,4 +42,5 @@ const SidebarChat = ({ addNewChat, id, name, roomImage }) => {
         )
 }
 
-export default SidebarChat
+export default React.memo(SidebarChat)
+// export default SidebarChat

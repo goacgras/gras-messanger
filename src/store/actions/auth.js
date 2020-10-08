@@ -31,7 +31,6 @@ export const userSignin = () => {
     return dispatch => {
         auth.signInWithPopup(provider)
             .then(response => {
-                console.log(response);
                 const expiresIn = 3600
                 const expirationDate = new Date(new Date().getTime() + expiresIn * 1000)
 

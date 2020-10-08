@@ -2,8 +2,8 @@ import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
     messages: [],
-    roomName: 'Select room',
-    roomImage: null
+    roomName: 'Select Room',
+    roomImage: null,
 };
 
 const reducer = (state = initialState, action) => {
@@ -11,7 +11,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.SET_MESSAGES:
             return {
                 ...state,
-                messages: action.messages
+                messages: action.messages,
             }
         case actionTypes.SET_ROOM_NAME:
             return {
@@ -23,6 +23,12 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 roomImage: image
+            }
+        case actionTypes.USER_LOGOUT:
+            return {
+                ...state,
+                roomName: 'Select Room',
+                roomImage: null
             }
         default:
             return state;

@@ -20,7 +20,7 @@ const Login = ({ onUserSignin }) => {
                 </div>
 
                 <Button onClick={signIn}>
-                    Sign in with google
+                    Sign with google
                 </Button>
 
             </div>
